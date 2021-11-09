@@ -11,7 +11,8 @@ const defaultStyle = {
         padding: '8px 0px'
     },
     separator: {
-        margin: '8px'
+        margin: '8px',
+        width: '1px'
     },
     thumb: {
         padding: '4px 4px'
@@ -32,36 +33,41 @@ export function SegmentedControl({segments, onChange, style}) {
         select(i)
     }
 
-    const options = segments.map((data, i) => (
-        <div key={i}>
-            {(i==0) ? '' :
-                <div
-                    className={s.separator}
-                    style={{
-                        ...style.separator,
-                        height:`calc(100% - 2*${style.separatorMargin})`, 
-                        margin: `${style.separator.margin} 0`}}
+    let options = segments.map((data, i) => (
+        <div key={i+'-item'}
+            className={s.item} 
+            style={{
+                width: `calc(${itemWidth} - ${(segments.length-1)/segments.length} * ${style.separator.width} )`,
+                ...style.item,
+            }}
+        >
+            <label className={s.item_label} >
+                {data.title}
+                <input type='radio'
+                    value = {data.title}
+                    checked = {i == selected}
+                    onChange = {e => internalOnChange(i)}
+                    style = {{display:'none'}}
                 />
-            }
-            <div
-                className={s.item} 
-                style={{
-                    width: `calc(${itemWidth} - ${(segments.length-1)/segments.length}px )`,
-                    ...style.item,
-                }}
-            >
-                <label className={s.item_label} >
-                    {data.title}
-                    <input type='radio'
-                        value = {data.title}
-                        checked = {i == selected}
-                        onChange = {e => internalOnChange(i)}
-                        style = {{display:'none'}}
-                    />
-                </label>
-            </div>
+            </label>
         </div>
     ))
+
+
+    for(let i=1; i<options.length; i += 2) {
+        options.splice(
+            i, 
+            0,
+            <div key={i+'-sep'}
+                className={s.separator}
+                style={{
+                    ...style.separator,
+                    height:`calc(100% - 2*${style.separator.margin})`, 
+                    margin: `${style.separator.margin} 0`
+                }}
+            />
+        )
+    }
 
     console.log(options)
 

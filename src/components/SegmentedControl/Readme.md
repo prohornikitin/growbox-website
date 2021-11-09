@@ -17,7 +17,7 @@ Field/Element | Element Description
 --------------|-----------
 container     | Contains all other parts of component
 item          | It's a segment itself. Holds segment text and reacts on click.
-separator     | Separates items from each other. **Do not set horizontal margin or padding!**
+separator     | Separates items from each other. **Only vertical margin works!**
 thumb         | Selected element covers with thumb. Should have the same height as container. It's invisible but has a child **visible_thumb**.
 visible_thumb | As said before, it's a child of thumb. Visible part is smaller than thumb.
         
