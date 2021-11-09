@@ -1,10 +1,11 @@
 @import '../../colors.scss';
 
 .container {
-    border-radius: 7px;
+    height: 100%;
+    border-radius: 8px;
     display: block;
-    height: max-content;
-    background-color: #eae6ebbb;
+    // height: max-content;
+    background-color: #eae6eb77;
 }
 
 
@@ -37,8 +38,7 @@
 .thumb_visible {
     border-radius: 6px;
     height: 100%;
-    width: 100%;               
-    background-color: #fff;
+    width: 100%;
 }
 
 

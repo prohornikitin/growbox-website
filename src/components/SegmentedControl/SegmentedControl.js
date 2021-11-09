@@ -4,12 +4,21 @@ import {CSSTransition} from 'react-transition-group';
 import classNames from 'classnames';
 
 const defaultStyle = {
-    fontSize: '0.5rem',
-    paddingOutV: '8px',
-    paddingOutH: '4px',
-    paddingInV: '8px',
-    paddingThumb: '4px 4px',
-    separatorMargin: '8px'
+    container: {
+        fontSize: '0.5rem',
+    },
+    item: {
+        padding: '8px 0px'
+    },
+    separator: {
+        margin: '8px'
+    },
+    thumb: {
+        padding: '4px 4px'
+    },
+    thumb_visible: {
+        background: '#FFF'
+    }
 }
 
 export function SegmentedControl({segments, onChange, style}) {
@@ -24,52 +33,50 @@ export function SegmentedControl({segments, onChange, style}) {
     }
 
     const options = segments.map((data, i) => (
-        <>
+        <div key={i}>
             {(i==0) ? '' :
-                <div key={`${i}sep`} 
+                <div
                     className={s.separator}
-                    style={{height:`calc(100% - 2*${style.separatorMargin})`, margin: `${style.separatorMargin} 0`}}
+                    style={{
+                        ...style.separator,
+                        height:`calc(100% - 2*${style.separatorMargin})`, 
+                        margin: `${style.separator.margin} 0`}}
                 />
-                
             }
-            <div key={i} 
+            <div
                 className={s.item} 
                 style={{
-                    padding: `${style.paddingInV} 0px`,
                     width: `calc(${itemWidth} - ${(segments.length-1)/segments.length}px )`,
-                    fontSize: `${style.fontSize}`
+                    ...style.item,
                 }}
             >
                 <label className={s.item_label} >
-                    {data.name}
+                    {data.title}
                     <input type='radio'
-                        value = {data.name}
+                        value = {data.title}
                         checked = {i == selected}
                         onChange = {e => internalOnChange(i)}
                         style = {{display:'none'}}
                     />
                 </label>
             </div>
-        </>
+        </div>
     ))
 
     console.log(options)
 
     return (
         <div className={s.container} 
-            style={{
-                height: `calc(${style.fontSize}*1.15 + 2*${style.paddingOutV})`,
-            }}
+            style={style.container}
         >
             {options}
             <div className={s.thumb}
                 style={{
                     width: `${itemWidth}`,
-                    fontSize: `${style.fontSize}`,
                     transform: `translateX(${100*selected}%)`, 
-                    padding: style.paddingThumb,
+                    ...style.thumb
                 }}>
-                    <div className={s.thumb_visible}></div>
+                    <div className={s.thumb_visible} style={style.thumb_visible}></div>
             </div>
         </div>
     )
