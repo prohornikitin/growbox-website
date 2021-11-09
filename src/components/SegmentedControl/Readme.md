@@ -1,9 +1,16 @@
 # Segmented Control
 ![Image of component](Screenshot.png)
 
+## Props
+Attribute |        Type       | Description 
+----------|-------------------|------------
+Segments  | [{title: string}] | Array of descriptions for each segment. So far it contains only title.
+onChange  | (number) => void  | Callback, which called if selected segment changes. The first argument of callback is an index of selected segment.
+style     | Object            | Used for styling. Details described bellow in **Styling**
+
 ## Styling
-Component has **style** attribute, 
-it is an object which sets style attribute for different parts of component.
+Component has **style** prop, 
+it is an object which describes style for different parts of component.
 Object format described bellow.
 
 Field/Element | Element Description
