@@ -46,7 +46,7 @@ export function SegmentedControl({segments, onChange, style}) {
 SegmentedControl.propTypes = {
     segments: PropTypes.arrayOf(
         PropTypes.shape({
-            name: PropTypes.string
+            title: PropTypes.string
         })
     ),
     onChange: PropTypes.func,
