@@ -3169,6 +3169,11 @@ rechoir@^0.7.0:
   dependencies:
     resolve "^1.9.0"
 
+recursive-object-assign@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/recursive-object-assign/-/recursive-object-assign-1.0.1.tgz#60c851ece42acc5718761b0b3a9be4fd7d41fe42"
+  integrity sha1-YMhR7OQqzFcYdhsLOpvk/X1B/kI=
+
 regenerate-unicode-properties@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-9.0.0.tgz#54d09c7115e1f53dc2314a974b32c1c344efe326"

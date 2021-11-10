@@ -1,32 +1,11 @@
 import React, { useState } from 'react'
-import s from './SegmentedControl.scss'
-import {CSSTransition} from 'react-transition-group';
-import classNames from 'classnames';
+import { generateStyle } from './style'
+import PropTypes from 'prop-types';
 
-const defaultStyle = {
-    container: {
-        fontSize: '0.5rem',
-    },
-    item: {
-        padding: '8px 0px'
-    },
-    separator: {
-        margin: '8px',
-        width: '1px'
-    },
-    thumb: {
-        padding: '4px 4px'
-    },
-    thumb_visible: {
-        background: '#FFF'
-    }
-}
 
 export function SegmentedControl({segments, onChange, style}) {
-    style = {...defaultStyle, ...style}
+    const s = generateStyle(style, segments.length)
     const [selected, select] = useState(0)
-
-    const itemWidth = `${100 / segments.length}%`;
     
     const internalOnChange = (i) => {
         onChange(i)
@@ -34,15 +13,9 @@ export function SegmentedControl({segments, onChange, style}) {
     }
 
     let options = segments.map((data, i) => (
-        <div key={i+'-item'}
-            className={s.item} 
-            style={{
-                width: `calc(${itemWidth} - ${(segments.length-1)/segments.length} * ${style.separator.width} )`,
-                ...style.item,
-            }}
-        >
-            <label className={s.item_label} >
-                {data.title}
+        <div key={i+'-item'} style={s.item}>
+            <label style={s.label}>
+                <p style={s.text}>{data.title}</p>
                 <input type='radio'
                     value = {data.title}
                     checked = {i == selected}
@@ -55,39 +28,37 @@ export function SegmentedControl({segments, onChange, style}) {
 
 
     for(let i=1; i<options.length; i += 2) {
-        options.splice(
-            i, 
-            0,
-            <div key={i+'-sep'}
-                className={s.separator}
-                style={{
-                    ...style.separator,
-                    height:`calc(100% - 2*${style.separator.margin})`, 
-                    margin: `${style.separator.margin} 0`
-                }}
-            />
-        )
+        options.splice(i, 0, <div key={i+'-sep'} id={i+'-sep'} style={s.separator}/>)
     }
 
-    console.log(options)
-
     return (
-        <div className={s.container} 
-            style={style.container}
-        >
+        <div style={s.container}>
             {options}
-            <div className={s.thumb}
-                style={{
-                    width: `${itemWidth}`,
-                    transform: `translateX(${100*selected}%)`, 
-                    ...style.thumb
-                }}>
-                    <div className={s.thumb_visible} style={style.thumb_visible}></div>
+            <div style={{transform: `translateX(${100*selected}%)`, ...s.thumb}}>
+                <div style={s.thumbVisible}/>
             </div>
         </div>
     )
 }
 
+
+
+SegmentedControl.propTypes = {
+    segments: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string
+        })
+    ),
+    onChange: PropTypes.func,
+    style: PropTypes.shape({
+        container: PropTypes.object,
+        item: PropTypes.object,
+        separator: PropTypes.object,
+        text: PropTypes.object,
+        thumb: PropTypes.object,
+        thumbVisible: PropTypes.object,
+    })
+}
 
 SegmentedControl.defaultProps = {
     values: [],
