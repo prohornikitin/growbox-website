@@ -43,6 +43,7 @@ export function generateStyle(style, segments_count) {
             fontSize: '0.5rem',
         },
         item: {
+            height: '100%',
             width: `calc(${100 / segments_count}% - ${(segments_count - 1) / segments_count} * ${style.separator.width} )`,
             position: 'relative',
             float: 'left',
@@ -57,6 +58,7 @@ export function generateStyle(style, segments_count) {
             marginRight: 0,
         },
         label: {
+            height: '100%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
